@@ -14,7 +14,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-    <base href="/sis-absensi/" />
+    <base href="/" />
 
     <meta charset="UTF-8" />
     <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
@@ -46,9 +46,15 @@
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
         
-        // Set theme colors
-        window.Telegram.WebApp.setHeaderColor('#2196F3');
-        window.Telegram.WebApp.setBackgroundColor('#FFFFFF');
+        // Set theme colors (only if supported)
+        if (window.Telegram.WebApp.version >= '6.1') {
+          try {
+            window.Telegram.WebApp.setHeaderColor('#2196F3');
+            window.Telegram.WebApp.setBackgroundColor('#FFFFFF');
+          } catch (e) {
+            console.log('Theme colors not supported in this version');
+          }
+        }
         
         // Store Telegram user data for Flutter app
         if (window.Telegram.WebApp.initDataUnsafe.user) {
